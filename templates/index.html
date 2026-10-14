@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman | CodeAlpha</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="game-card">
+        <div class="badge">CODEALPHA • PYTHON PROJECT</div>
+        <h1>Hangman <span>Game</span></h1>
+        <p class="subtitle">Find the hidden word, one letter at a time.</p>
+
+        <div class="status-row">
+            <div class="stat">
+                <span class="stat-label">Attempts left</span>
+                <strong>{{ remaining }} / 6</strong>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Letters guessed</span>
+                <strong>{{ guessed|length }}</strong>
+            </div>
+        </div>
+
+        <section class="word-panel" aria-label="Hidden word">
+            <div class="word">{{ display_word }}</div>
+        </section>
+
+        {% if status == "won" %}
+            <div class="message success">🎉 You won! The word was “{{ answer }}”.</div>
+        {% elif status == "lost" %}
+            <div class="message error">Game over! The word was “{{ answer }}”.</div>
+        {% elif message %}
+            <div class="message">{{ message }}</div>
+        {% else %}
+            <div class="message neutral">Choose a letter below to make your guess.</div>
+        {% endif %}
+
+        <form method="POST" class="guess-form">
+            <label for="guess">Your guess</label>
+            <div class="input-row">
+                <input id="guess" name="guess" type="text" maxlength="1"
+                       pattern="[A-Za-z]" placeholder="A" autocomplete="off"
+                       {% if status != "playing" %}disabled{% endif %} required>
+                <button type="submit" {% if status != "playing" %}disabled{% endif %}>Guess</button>
+            </div>
+        </form>
+
+        <div class="keyboard" aria-label="Alphabet">
+            {% for letter in alphabet %}
+                {% if letter in guessed %}
+                    <span class="key used {% if letter in answer or (status == 'playing' and letter in display_word.replace(' ', '')) %}correct{% else %}wrong{% endif %}">{{ letter }}</span>
+                {% else %}
+                    <span class="key">{{ letter }}</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <form method="POST">
+            <button class="new-game" type="submit" name="action" value="new">↻ New Game</button>
+        </form>
+        <p class="footer">Built with HTML, CSS, Python & Flask</p>
+    </main>
+</body>
+</html>

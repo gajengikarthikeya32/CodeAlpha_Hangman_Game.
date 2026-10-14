@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+    --bg: #0c1020;
+    --card: #151b30;
+    --panel: #0e1426;
+    --text: #f4f6ff;
+    --muted: #a2abc4;
+    --accent: #8b7cff;
+    --accent2: #5de0c1;
+    --border: #2a3452;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 28px 16px;
+    background: radial-gradient(circle at top, #252653 0, var(--bg) 55%);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.game-card {
+    width: min(100%, 650px);
+    padding: clamp(24px, 5vw, 44px);
+    background: rgba(21, 27, 48, 0.96);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, .35);
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #48406e;
+    border-radius: 999px;
+    color: #c9c2ff;
+    background: #252344;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+h1 {
+    margin: 18px 0 8px;
+    font: 700 clamp(34px, 7vw, 48px) 'Space Grotesk', sans-serif;
+    letter-spacing: -1.8px;
+}
+
+h1 span { color: var(--accent2); }
+.subtitle { margin: 0; color: var(--muted); }
+
+.status-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 28px 0 18px;
+}
+
+.stat {
+    padding: 15px 18px;
+    background: #1b2340;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.stat-label { display: block; margin-bottom: 6px; color: var(--muted); font-size: 12px; }
+.stat strong { font: 600 20px 'Space Grotesk', sans-serif; }
+
+.word-panel {
+    display: grid;
+    place-items: center;
+    min-height: 118px;
+    padding: 20px;
+    background: var(--panel);
+    border: 1px dashed #414d70;
+    border-radius: 18px;
+}
+
+.word {
+    color: var(--accent2);
+    font: 700 clamp(24px, 6vw, 38px) 'Space Grotesk', sans-serif;
+    letter-spacing: 8px;
+    overflow-wrap: anywhere;
+}
+
+.message {
+    margin: 16px 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #202943;
+    color: #dce2f7;
+    font-size: 14px;
+}
+.message.success { background: #123c39; color: #8ff3d8; }
+.message.error { background: #452533; color: #ffb2c1; }
+.message.neutral { color: var(--muted); }
+
+.guess-form label { display: block; margin: 20px 0 8px; font-size: 13px; color: var(--muted); }
+.input-row { display: flex; gap: 10px; }
+
+input {
+    width: 0;
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    background: #0e1426;
+    color: var(--text);
+    font: 600 18px 'Space Grotesk', sans-serif;
+}
+input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px #8b7cff25; }
+
+button {
+    border: 0;
+    border-radius: 12px;
+    padding: 13px 22px;
+    background: var(--accent);
+    color: white;
+    font: 700 14px 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: transform .15s, opacity .15s;
+}
+button:hover { transform: translateY(-1px); }
+button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(13, minmax(0, 1fr));
+    gap: 7px;
+    margin: 24px 0;
+}
+
+.key {
+    display: grid;
+    place-items: center;
+    min-height: 34px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: #d9def2;
+    background: #202943;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+}
+.key.used { opacity: .55; }
+.key.correct { background: #16443d; border-color: #286f60; color: #8ff3d8; }
+.key.wrong { background: #482632; border-color: #754052; color: #ffb2c1; }
+
+.new-game {
+    width: 100%;
+    padding: 14px;
+    background: #283250;
+    border: 1px solid #3b496e;
+}
+.footer { margin: 24px 0 0; text-align: center; color: #77829f; font-size: 12px; }
+
+@media (max-width: 460px) {
+    .keyboard { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .word { letter-spacing: 5px; }
+    .input-row button { padding-inline: 16px; }
+}
